@@ -1,0 +1,12 @@
+<h1>Listing Posts</h1>
+
+<% for post in @posts: %>
+  <div class="item" data-id="<%= post.id %>">
+    <a data-type="show"><%= post.title %></a>
+    
+    <a data-type="edit">Edit</a> 
+    <a data-type="destroy">Destroy</a>
+  </div>
+<% end %>
+
+<p><a data-type="new">New Post</a></p>
