@@ -1,0 +1,15 @@
+<h1>Listing Posts via: index.jst.hbs</h1>
+
+{{#each posts}}
+  <div class="item" data-id="{{id}}">
+    <a data-type="show" href="/posts/{{id}}">{{title}}</a>
+    
+    <p>
+    <a class="btn btn-mini" data-type="edit">Edit</a> 
+    <a class="btn-danger btn btn-mini" data-type="destroy">Destroy</a>
+    </p>
+
+  </div>
+{{/each}}
+
+<p><a class="btn-large btn" data-type="new">New Post</a></p>

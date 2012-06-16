@@ -22,6 +22,6 @@
     <br />
   </label>
   
-  <button>Edit</button>
+  <button class="btn-large btn" >Edit</button>
 
 </form>

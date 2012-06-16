@@ -6,5 +6,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require handlebars.runtime
+//= require_tree ./app/views
 //= require app
 //= require_tree .
+
+$('.dropdown-toggle').dropdown()

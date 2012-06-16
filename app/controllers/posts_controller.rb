@@ -1,4 +1,6 @@
-class PostsController < ApplicationController
+class PostsController  < ApplicationController
+  self.prepend_view_path("app/assets/javascripts/app/views")
+
   # GET /posts
   # GET /posts.json
   def index
@@ -15,10 +17,10 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render :json => @post }
-    end
+    # respond_to do |format|
+    #   format.html # show.html.erb
+    #   format.json { render :json => @post }
+    # end
   end
 
   # GET /posts/new

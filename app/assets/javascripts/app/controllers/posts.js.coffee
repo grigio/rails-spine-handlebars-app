@@ -23,8 +23,8 @@ class New extends Spine.Controller
 
   submit: (e) ->
     e.preventDefault()
-    post = Post.fromForm(e.target).save()
-    @navigate '/posts', post.id if post
+    @post = Post.fromForm(e.target).save()
+    @navigate '/posts', @post.id if @post
 
 class Edit extends Spine.Controller
   events:
@@ -58,6 +58,10 @@ class Show extends Spine.Controller
 
   constructor: ->
     super
+    # on create id is c-XX like :(
+    Post.bind 'change', (i) =>
+      @navigate '/posts', i.id
+
     @active (params) ->
       @change(params.id)
 
@@ -66,6 +70,7 @@ class Show extends Spine.Controller
     @render()
 
   render: ->
+    # JST['app/views/posts/show']({title:'ciao'});
     @html @view('posts/show')(@item)
 
   edit: ->
@@ -85,10 +90,19 @@ class Index extends Spine.Controller
     super
     Post.bind 'refresh change', @render
     Post.fetch()
+    Post.bind 'create', (e) -> $('#log').append '<li>C => '+JSON.stringify(e)+'</li>' if e
+    Post.bind 'update', (e) -> $('#log').append '<li>U => '+JSON.stringify(e)+'</li>' if e
+    Post.bind 'delete', (e) -> $('#log').append '<li>D => '+JSON.stringify(e)+'</li>' if e
+    Post.bind 'ajaxSuccess', (e) -> $('#log').append '<li>AS => '+JSON.stringify(e)+'</li>' if e
+    Post.bind 'ajaxError', (r, xhr, settings, error) -> $('#log').append '<li>AE => '+JSON.stringify(r)+xhr.statusText+'</li>' if r
+
     
   render: =>
     posts = Post.all()
     @html @view('posts/index')(posts: posts)
+    # href is is only for bots
+    $('a[data-type]').each (index)->
+      $(@).removeAttr('href')
     
   edit: (e) ->
     item = $(e.target).item()
@@ -96,7 +110,7 @@ class Index extends Spine.Controller
     
   destroy: (e) ->
     item = $(e.target).item()
-    item.destroy() if confirm('Sure?')
+    item.destroy() #if confirm('Sure?')
     
   show: (e) ->
     item = $(e.target).item()

@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-RailsSpineMustacheApp::Application.load_tasks
+RailsSpineHandlebarsApp::Application.load_tasks

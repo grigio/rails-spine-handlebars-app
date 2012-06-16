@@ -20,6 +20,6 @@ class App extends Spine.Controller
     #  ...
     @append(@posts = new App.Posts)
     
-    Spine.Route.setup()    
+    Spine.Route.setup(history: true)   
 
 window.App = App
